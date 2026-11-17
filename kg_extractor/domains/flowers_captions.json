@@ -1,0 +1,79 @@
+{
+  "name": "flowers_captions",
+  "description": "Flower appearance captions (Oxford-102, 10 captions per image joined). Goal: flowers of the SAME species collapse to a heavily overlapping KG anchored on shared flower parts and their colors/shapes. The KG is built ONLY from described appearance (petals, stamen, colors, shapes, counts) — the class label is an anonymous number (flower_NNN) and never appears in text, so there is no label to leak. Same-species images share part/color/shape triples; different species differ, giving W_kg both within-class sharing and cross-class boundary.",
+  "entity_naming": "TitleCase_With_Underscores",
+  "predicate_naming": "snake_case",
+  "entity_types": [
+    "Flower",
+    "Flower_Part",
+    "Color",
+    "Shape",
+    "Count",
+    "Arrangement",
+    "Texture"
+  ],
+  "predicate_vocab": [
+    "has_part",
+    "has_color",
+    "has_shape",
+    "has_count",
+    "has_arrangement",
+    "has_texture"
+  ],
+  "canonicalization_hints": [
+    "ANCHOR: every caption describes one flower — use a single generic 'Flower' subject node. The class label is an anonymous number and is never in the text, so just describe the stated appearance.",
+    "REIFY parts: (Flower, has_part, Petal) then attach the part's attributes to the PART node, e.g. (Petal, has_color, Pink), (Petal, has_shape, Ruffled), (Petal, has_count, Five). Shared 'Petal'/'Pink' entities across the corpus are the only basis of cross-document KG overlap.",
+    "Closed FLOWER_PART vocabulary (canonicalize synonyms): Petal, Stamen, Filament, Anther, Stigma, Pistil, Style, Ovary, Sepal, Center (middle/centre/eye/core->Center), Pedicel (stem/stalk->Pedicel), Leaf (leaves->Leaf), Vein (veins/veining->Vein). Map synonyms to the canonical part; drop parts not in this list.",
+    "Closed COLOR palette (canonicalize shades): White, Black, Grey, Brown, Yellow, Orange, Red, Pink, Purple, Violet, Blue, Green, Magenta, Maroon, Cream (off-white/ivory->Cream). 'dark'/'light'/'bright'/'pale' modifiers dropped, keep the bare hue; 'multi colored' -> skip (no single hue).",
+    "Closed SHAPE vocabulary: Pointed, Rounded, Ruffled, Spherical, Star_Shaped, Cross_Shaped, Cup_Shaped, Bell_Shaped, Trumpet_Shaped, Tubular, Long, Narrow, Wide, Curved. Closed TEXTURE: Soft, Smooth, Veined, Spotted, Striped, Waxy.",
+    "Closed COUNT vocabulary (petal/part counts are discriminative): One, Two, Three, Four, Five, Six, Many. Map numerals to words; 'numerous'/'lots of'/'a bunch' -> Many.",
+    "Closed ARRANGEMENT vocabulary: Clustered, Separate, Layered, Overlapping, Symmetrical, Surrounding (petals around stamen -> Surrounding).",
+    "The 10 joined captions repeat the same facts in different words — EXTRACT EACH FACT ONCE (the critique pass dedups). Keep only attributes actually stated; do not infer unstated colors/parts."
+  ],
+  "inline_examples": [
+    {
+      "text": "the petals of the flower are pink in color and have a yellow center. the geographical shapes of the bright purple petals set off the orange stamen and filament and the cross shaped stigma is beautiful.",
+      "triples": [
+        "(Flower, has_part, Petal)",
+        "(Petal, has_color, Pink)",
+        "(Petal, has_color, Purple)",
+        "(Flower, has_part, Center)",
+        "(Center, has_color, Yellow)",
+        "(Flower, has_part, Stamen)",
+        "(Stamen, has_color, Orange)",
+        "(Flower, has_part, Filament)",
+        "(Filament, has_color, Orange)",
+        "(Flower, has_part, Stigma)",
+        "(Stigma, has_shape, Cross_Shaped)"
+      ]
+    },
+    {
+      "text": "there are five orange petals with reddish veins on the flower and the stamen and stigma are light green. the petals on this flower are orange and the pistil is round and has filaments sticking out.",
+      "triples": [
+        "(Flower, has_part, Petal)",
+        "(Petal, has_color, Orange)",
+        "(Petal, has_count, Five)",
+        "(Flower, has_part, Vein)",
+        "(Vein, has_color, Red)",
+        "(Flower, has_part, Stamen)",
+        "(Stamen, has_color, Green)",
+        "(Flower, has_part, Stigma)",
+        "(Stigma, has_color, Green)",
+        "(Flower, has_part, Pistil)",
+        "(Pistil, has_shape, Rounded)",
+        "(Flower, has_part, Filament)"
+      ]
+    }
+  ],
+  "reification": {
+    "patterns": [
+      "part-attribute: (Flower, has_part, <Part>) + (<Part>, has_color|has_shape|has_count|has_texture, <Value>)"
+    ]
+  },
+  "canonical_examples": [],
+  "constraints": {
+    "min_triples": 4,
+    "max_triples": 22,
+    "require_type_triples": false
+  }
+}

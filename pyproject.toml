@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kg-neighbor"
+version = "1.0.0"
+description = "KG-Neighbor: Knowledge-Guided Neighborhood Construction for Embedding Visualization"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "CC-BY-NC-ND-4.0"
+authors = [
+    {name = "Chang Won Kim"},
+    {name = "Jaewook Lee"},
+    {name = "Haeun Min"},
+    {name = "JunNyeong Jeong"},
+    {name = "Minwoo Sim"},
+    {name = "Barom Kang"},
+    {name = "Kyohoon Jin"},
+]
+dependencies = [
+    "numpy>=2.3.4",
+    "scipy>=1.17.1",
+    "scikit-learn>=1.8.0",
+    "umap-learn>=0.5.12",
+]
+
+[project.optional-dependencies]
+# text / image encoders — install the torch and torchvision wheels that match your CUDA or CPU setup (the paper used +cu126)
+embed = [
+    "torch>=2.9.1",
+    "torchvision>=0.24.1",
+    "sentence-transformers>=5.5.0",
+    "Pillow>=11.3.0",
+    "tqdm>=4.67.1",
+]
+plot = [
+    "matplotlib>=3.10.9",
+]
+# IDP judges (OpenAI Batch API, Anthropic Message Batches API); Pillow resizes images attached to requests
+llm = [
+    "openai>=2.32.0",
+    "anthropic>=2.8.0",
+    "Pillow>=11.3.0",
+]
+dev = [
+    "pytest>=9.1.1",
+]
+all = [
+    "kg-neighbor[embed,plot,llm]",
+]
+
+[tool.setuptools.packages.find]
+include = ["kg_neighbor*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

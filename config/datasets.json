@@ -1,0 +1,30 @@
+{
+  "stackoverflow": {
+    "modality": "text",
+    "encoders": {
+      "bert_base": {"model": "bert-base-uncased", "batch_size": 128},
+      "qwen3_8b": {"model": "Qwen/Qwen3-Embedding-8B", "batch_size": 64}
+    }
+  },
+  "banking77": {
+    "modality": "text",
+    "encoders": {
+      "bert_base": {"model": "bert-base-uncased", "batch_size": 128},
+      "qwen3_8b": {"model": "Qwen/Qwen3-Embedding-8B", "batch_size": 64}
+    }
+  },
+  "cub200": {
+    "modality": "image",
+    "encoders": {
+      "resnet50": {"model": "resnet50", "batch_size": 64},
+      "clip_l14": {"model": "clip-ViT-L-14", "batch_size": 64}
+    }
+  },
+  "flowers102": {
+    "modality": "image",
+    "encoders": {
+      "resnet50": {"model": "resnet50", "batch_size": 64},
+      "clip_l14": {"model": "clip-ViT-L-14", "batch_size": 64}
+    }
+  }
+}

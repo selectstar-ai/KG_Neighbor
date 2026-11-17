@@ -1,0 +1,76 @@
+{
+  "name": "birds_captions",
+  "description": "Bird appearance captions (CUB-200-2011, 10 captions per image joined). Goal: birds of the SAME species collapse to a heavily overlapping KG anchored on shared body parts and their colors. The KG is built ONLY from described appearance (parts, colors, shapes) — NEVER the species name (which is the held-out class label). Same-species images share part/color triples; different species differ in coloration, giving W_kg both within-class sharing and cross-class boundary.",
+  "entity_naming": "TitleCase_With_Underscores",
+  "predicate_naming": "snake_case",
+  "entity_types": [
+    "Bird",
+    "Body_Part",
+    "Color",
+    "Shape",
+    "Size",
+    "Pattern"
+  ],
+  "predicate_vocab": [
+    "has_part",
+    "has_color",
+    "has_shape",
+    "has_size",
+    "has_pattern"
+  ],
+  "canonicalization_hints": [
+    "ANCHOR: every caption describes one bird — use a single generic 'Bird' subject node. NEVER emit the species name (Gull, Albatross, etc.) as an entity; it is the held-out label and would leak the class into the KG. Describe only what the appearance text states.",
+    "REIFY parts: (Bird, has_part, <Part>) then attach the part's attributes to the PART node, e.g. (Beak, has_color, Black), (Beak, has_shape, Curved). This makes 'Beak'/'Black' shared entities across the whole corpus — the only basis of cross-document KG overlap.",
+    "Closed BODY_PART vocabulary (canonicalize synonyms): Beak (bill->Beak), Wing, Tail, Crown, Head, Breast, Belly, Throat, Nape, Back, Eye (eye ring->Eye), Eye_Ring, Leg (tarsus/feet/legs->Leg), Wingbar, Retrices (outer retrices->Retrices). Map any synonym to the canonical part; drop parts not in this list unless clearly central.",
+    "Closed COLOR palette (canonicalize shades): Black, White, Grey (gray->Grey), Brown, Buff, Yellow, Orange, Red, Pink, Blue, Green, Tan (light brown->Tan). Map 'dark'->prefix dropped (just the hue); if only 'dark'/'light' with no hue, skip the color.",
+    "Closed SHAPE vocabulary: Curved, Straight, Hooked, Pointed, Rounded, Long, Short, Webbed. Closed SIZE: Small, Medium, Large. Closed PATTERN: Spotted, Streaked, Striped, Solid, Mottled.",
+    "Body-level color is fine as (Bird, has_color, White) when the caption says 'an all white bird'. Size as (Bird, has_size, Medium).",
+    "The 10 joined captions repeat the same facts in different words — EXTRACT EACH FACT ONCE (the critique pass dedups). Keep only attributes actually stated; do not infer unstated colors/parts."
+  ],
+  "inline_examples": [
+    {
+      "text": "a bird has a rounded crown that is white, a bright yellow bill, and dark black spotted outer retrices. this bird is white and grey in color with a curved orange and white beak and white eye ring.",
+      "triples": [
+        "(Bird, has_part, Crown)",
+        "(Crown, has_color, White)",
+        "(Crown, has_shape, Rounded)",
+        "(Bird, has_part, Beak)",
+        "(Beak, has_color, Yellow)",
+        "(Beak, has_color, Orange)",
+        "(Beak, has_shape, Curved)",
+        "(Bird, has_part, Retrices)",
+        "(Retrices, has_color, Black)",
+        "(Retrices, has_pattern, Spotted)",
+        "(Bird, has_part, Eye_Ring)",
+        "(Eye_Ring, has_color, White)",
+        "(Bird, has_color, White)",
+        "(Bird, has_color, Grey)"
+      ]
+    },
+    {
+      "text": "an all white bird with darker colored legs and small eyes. this medium sized bird is completely white with black legs and a grey bill. a white bird with a straight gray bill, and black tarsus and feet.",
+      "triples": [
+        "(Bird, has_color, White)",
+        "(Bird, has_size, Medium)",
+        "(Bird, has_part, Leg)",
+        "(Leg, has_color, Black)",
+        "(Bird, has_part, Beak)",
+        "(Beak, has_color, Grey)",
+        "(Beak, has_shape, Straight)",
+        "(Bird, has_part, Eye)",
+        "(Eye, has_size, Small)"
+      ]
+    }
+  ],
+  "reification": {
+    "patterns": [
+      "part-attribute: (Bird, has_part, <Part>) + (<Part>, has_color|has_shape|has_pattern, <Value>)"
+    ]
+  },
+  "canonical_examples": [],
+  "constraints": {
+    "min_triples": 4,
+    "max_triples": 22,
+    "require_type_triples": false
+  }
+}

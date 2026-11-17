@@ -1,0 +1,91 @@
+(Visual_Speech_Recognition, type, Research_Task)
+
+(Traditional_VSR_System, type, Existing_System)
+(Traditional_VSR_System, performs, Visual_Speech_Recognition)
+(Traditional_VSR_System, has_stage, Feature_Extraction)
+(Traditional_VSR_System, has_stage, Classification)
+
+(Deep_Learning_VSR_Approach, type, Existing_Approach)
+(Deep_Learning_VSR_Approach, applied_to, Visual_Speech_Recognition)
+(Deep_Learning_VSR_Approach, automatically_performs, Feature_Extraction)
+(Deep_Learning_VSR_Approach, extracts_features_from, Mouth_Image)
+(Deep_Learning_VSR_Approach, aims_to_replace, Separate_Feature_Extraction_Stage)
+
+(Joint_Learning_Research, type, Research_Area)
+(Joint_Learning_Research, involves, Feature_Learning)
+(Joint_Learning_Research, involves, Classification)
+(Joint_Learning_Research, has_status, Limited)
+
+(Existing_VSR_Methods, type, Method_Group)
+(Existing_VSR_Methods, require, Large_Amount_of_Data)
+(Large_Amount_of_Data, required_for, State_of_the_Art_Performance)
+
+(Existing_VSR_Methods, under_condition, Insufficient_Data)
+(Existing_VSR_Methods, exhibits, Underperformance)
+
+(End_to_End_VSR_System, type, Proposed_System)
+(End_to_End_VSR_System, performs, Visual_Speech_Recognition)
+(End_to_End_VSR_System, designed_for, Small_Scale_Dataset)
+(End_to_End_VSR_System, uses, Fully_Connected_Layer)
+(End_to_End_VSR_System, uses, LSTM_Network)
+(End_to_End_VSR_System, has_architecture, Two_Stream_Architecture)
+
+(Two_Stream_Architecture, type, Model_Architecture)
+(Two_Stream_Architecture, has_stream, Mouth_Image_Stream)
+(Two_Stream_Architecture, has_stream, Difference_Image_Stream)
+(Two_Stream_Architecture, has_fusion_component, Fusion_BLSTM)
+
+(Mouth_Image_Stream, type, Processing_Stream)
+(Mouth_Image_Stream, takes_input, Mouth_Image)
+(Mouth_Image_Stream, performs, Feature_Extraction)
+(Mouth_Image_Stream, models, Temporal_Dynamics)
+(Mouth_Image_Stream, uses, Mouth_Stream_BLSTM)
+
+(Difference_Image_Stream, type, Processing_Stream)
+(Difference_Image_Stream, takes_input, Difference_Image)
+(Difference_Image_Stream, performs, Feature_Extraction)
+(Difference_Image_Stream, models, Temporal_Dynamics)
+(Difference_Image_Stream, uses, Difference_Stream_BLSTM)
+
+(Mouth_Stream_BLSTM, type, Bidirectional_LSTM)
+(Mouth_Stream_BLSTM, models, Mouth_Stream_Temporal_Dynamics)
+
+(Difference_Stream_BLSTM, type, Bidirectional_LSTM)
+(Difference_Stream_BLSTM, models, Difference_Stream_Temporal_Dynamics)
+
+(Fusion_BLSTM, type, Bidirectional_LSTM)
+(Fusion_BLSTM, combines, Mouth_Image_Stream)
+(Fusion_BLSTM, combines, Difference_Image_Stream)
+
+(End_to_End_VSR_System, has_evaluation, OuluVS2_Evaluation)
+(End_to_End_VSR_System, has_evaluation, CUAVE_Evaluation)
+(End_to_End_VSR_System, has_evaluation, AVLetters_Evaluation)
+(End_to_End_VSR_System, has_evaluation, AVLetters2_Evaluation)
+
+(OuluVS2_Evaluation, type, Evaluation_Result)
+(OuluVS2_Evaluation, evaluated_on, OuluVS2)
+(OuluVS2_Evaluation, compared_against, State_of_the_Art)
+(OuluVS2_Evaluation, reports_change, Absolute_Improvement)
+(OuluVS2_Evaluation, has_value, 0.6)
+(OuluVS2_Evaluation, has_unit, Percent)
+
+(CUAVE_Evaluation, type, Evaluation_Result)
+(CUAVE_Evaluation, evaluated_on, CUAVE)
+(CUAVE_Evaluation, compared_against, State_of_the_Art)
+(CUAVE_Evaluation, reports_change, Absolute_Improvement)
+(CUAVE_Evaluation, has_value, 3.4)
+(CUAVE_Evaluation, has_unit, Percent)
+
+(AVLetters_Evaluation, type, Evaluation_Result)
+(AVLetters_Evaluation, evaluated_on, AVLetters)
+(AVLetters_Evaluation, compared_against, State_of_the_Art)
+(AVLetters_Evaluation, reports_change, Absolute_Improvement)
+(AVLetters_Evaluation, has_value, 3.9)
+(AVLetters_Evaluation, has_unit, Percent)
+
+(AVLetters2_Evaluation, type, Evaluation_Result)
+(AVLetters2_Evaluation, evaluated_on, AVLetters2)
+(AVLetters2_Evaluation, compared_against, State_of_the_Art)
+(AVLetters2_Evaluation, reports_change, Absolute_Improvement)
+(AVLetters2_Evaluation, has_value, 11.4)
+(AVLetters2_Evaluation, has_unit, Percent)

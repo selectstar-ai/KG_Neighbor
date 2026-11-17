@@ -1,0 +1,67 @@
+{
+  "name": "banking_intent",
+  "description": "Short customer-banking intent utterances (Banking77 style). Goal: utterances of the SAME intent must collapse to a heavily overlapping canonical event/state KG.",
+  "entity_naming": "TitleCase_With_Underscores",
+  "predicate_naming": "snake_case",
+  "entity_types": [
+    "Financial_Instrument",
+    "Account_Object",
+    "Banking_Process",
+    "Object_State",
+    "Actor",
+    "User_Action",
+    "Channel_Or_Location",
+    "Time_Reference",
+    "Problem"
+  ],
+  "predicate_vocab": [
+    "type",
+    "has_status",
+    "concerns",
+    "requests_action",
+    "about_process",
+    "owns",
+    "located_at",
+    "has_time_reference",
+    "reports_problem",
+    "has_subtype"
+  ],
+  "canonicalization_hints": [
+    "Collapse every card surface form (card, debit card, credit card, new card) to Physical_Card unless a subtype is the explicit point; attach subtype via has_subtype.",
+    "Express the intent as the core event/state, not the speech act. 'still waiting on my card' and 'card hasn't arrived' BOTH -> (Physical_Card, has_status, Not_Received) + (Card_Delivery, has_status, Pending).",
+    "Use canonical states: Not_Received, Pending, Not_Working, Lost, Stolen, Declined, Found, Not_Linked, Damaged.",
+    "Use canonical processes: Card_Delivery, Card_Linking, Card_Replacement, Card_Tracking.",
+    "The customer is always Actor 'User'. Drop pleading/urgency ('Help!', 'panicking') — not knowledge."
+  ],
+  "inline_examples": [
+    {
+      "text": "I am still waiting on my card?",
+      "triples": [
+        "(User, type, Actor)",
+        "(Physical_Card, type, Financial_Instrument)",
+        "(User, owns, Physical_Card)",
+        "(Physical_Card, has_status, Not_Received)",
+        "(Card_Delivery, type, Banking_Process)",
+        "(Card_Delivery, has_status, Pending)"
+      ]
+    },
+    {
+      "text": "I need to report a stolen card",
+      "triples": [
+        "(User, type, Actor)",
+        "(Physical_Card, type, Financial_Instrument)",
+        "(Physical_Card, has_status, Stolen)",
+        "(User, requests_action, Report_Stolen_Card)",
+        "(Report_Stolen_Card, type, User_Action)",
+        "(Report_Stolen_Card, about_process, Card_Replacement)"
+      ]
+    }
+  ],
+  "reification": { "patterns": [] },
+  "canonical_examples": [],
+  "constraints": {
+    "min_triples": 2,
+    "max_triples": 8,
+    "require_type_triples": true
+  }
+}

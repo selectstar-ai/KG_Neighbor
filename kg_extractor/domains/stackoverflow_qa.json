@@ -1,0 +1,65 @@
+{
+  "name": "stackoverflow_qa",
+  "description": "Short programming question titles (StackOverflow 20-class style). Goal: questions about the SAME technology collapse to a heavily overlapping KG anchored on the canonical technology entity. The class is a single technology tag (spring, hibernate, scala, oracle, linq).",
+  "entity_naming": "TitleCase_With_Underscores",
+  "predicate_naming": "snake_case",
+  "entity_types": [
+    "Technology",
+    "Language",
+    "Framework",
+    "Library",
+    "Tool",
+    "Programming_Concept",
+    "Operation",
+    "Artifact",
+    "Problem"
+  ],
+  "predicate_vocab": [
+    "type",
+    "about_technology",
+    "uses",
+    "performs_operation",
+    "applied_to",
+    "integrates_with",
+    "has_concept",
+    "produces",
+    "reports_problem"
+  ],
+  "canonicalization_hints": [
+    "Every question has a primary technology anchor — emit (Question, about_technology, <Canonical_Tech>). Canonicalize names: 'Spring MVC'/'Spring Security'/'Spring 2.5' all carry the anchor Spring (plus the specific module as its own Technology when named).",
+    "Canonicalize: LINQ, Hibernate, Spring, Scala, Oracle, Entity_Framework, JDBC, Active_Directory, SQL, DataSet, DataTable, EHCache.",
+    "Capture the operation/concept the question is about: performs_operation (Query, Join, Paging, Authentication, Logging, Validation, Type_Conversion) and integrates_with for cross-technology questions.",
+    "The asker's framing ('How do I', 'Best way to', 'Beginners guide') is a speech act — drop it. Use a single 'Question' subject node as the anchor.",
+    "If a title is off-topic vs its tag, extract what it actually asks — do not force the tag."
+  ],
+  "inline_examples": [
+    {
+      "text": "How do I fill a DataSet or a DataTable from a LINQ query resultset?",
+      "triples": [
+        "(Question, type, Artifact)",
+        "(Question, about_technology, LINQ)",
+        "(LINQ, type, Technology)",
+        "(Question, performs_operation, Query)",
+        "(Query, produces, DataSet)",
+        "(LINQ, applied_to, DataTable)"
+      ]
+    },
+    {
+      "text": "How do you authenticate against an Active Directory server using Spring Security?",
+      "triples": [
+        "(Question, type, Artifact)",
+        "(Question, about_technology, Spring)",
+        "(Spring_Security, type, Framework)",
+        "(Spring_Security, integrates_with, Active_Directory)",
+        "(Question, performs_operation, Authentication)"
+      ]
+    }
+  ],
+  "reification": { "patterns": [] },
+  "canonical_examples": [],
+  "constraints": {
+    "min_triples": 2,
+    "max_triples": 8,
+    "require_type_triples": true
+  }
+}

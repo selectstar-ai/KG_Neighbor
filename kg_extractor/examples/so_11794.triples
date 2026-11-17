@@ -1,0 +1,6 @@
+(Question, type, Artifact)
+(Question, about_technology, Rsync)
+(Rsync, type, Tool)
+(Question, performs_operation, Copy)
+(Rsync, integrates_with, SVN)
+(SVN, type, Tool)

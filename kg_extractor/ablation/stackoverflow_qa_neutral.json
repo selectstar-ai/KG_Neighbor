@@ -1,0 +1,67 @@
+{
+  "name": "stackoverflow_qa_neutral",
+  "description": "Short programming question titles. Goal: the same content or entity must get the same canonical name across questions.",
+  "entity_naming": "TitleCase_With_Underscores",
+  "predicate_naming": "snake_case",
+  "entity_types": [
+    "Technology",
+    "Language",
+    "Framework",
+    "Library",
+    "Tool",
+    "Programming_Concept",
+    "Operation",
+    "Artifact",
+    "Problem"
+  ],
+  "predicate_vocab": [
+    "type",
+    "about_technology",
+    "uses",
+    "performs_operation",
+    "applied_to",
+    "integrates_with",
+    "has_concept",
+    "produces",
+    "reports_problem"
+  ],
+  "canonicalization_hints": [
+    "Every question has a primary technology anchor — emit (Question, about_technology, <Canonical_Tech>). Canonicalize names: 'Flask-Login'/'Flask-SQLAlchemy'/'Flask 2.0' all carry the anchor Flask (plus the specific module as its own Technology when named).",
+    "Canonicalize: Docker, Kubernetes, Flask, Rust, TensorFlow, Entity_Framework, JDBC, Active_Directory, SQL, DataSet, DataTable, EHCache.",
+    "Capture the operation/concept the question is about: performs_operation (Query, Join, Paging, Authentication, Logging, Validation, Type_Conversion) and integrates_with for cross-technology questions.",
+    "The asker's framing ('How do I', 'Best way to', 'Beginners guide') is a speech act — drop it. Use a single 'Question' subject node as the anchor.",
+    "Extract what the title actually asks."
+  ],
+  "inline_examples": [
+    {
+      "text": "How do I deserialize a JSON response into a struct in Rust?",
+      "triples": [
+        "(Question, type, Artifact)",
+        "(Question, about_technology, Rust)",
+        "(Rust, type, Language)",
+        "(Question, performs_operation, Deserialization)",
+        "(Deserialization, applied_to, JSON)",
+        "(Deserialization, produces, Struct)"
+      ]
+    },
+    {
+      "text": "How do you authenticate against an Active Directory server using Flask-Login?",
+      "triples": [
+        "(Question, type, Artifact)",
+        "(Question, about_technology, Flask)",
+        "(Flask_Login, type, Library)",
+        "(Flask_Login, integrates_with, Active_Directory)",
+        "(Question, performs_operation, Authentication)"
+      ]
+    }
+  ],
+  "reification": {
+    "patterns": []
+  },
+  "canonical_examples": [],
+  "constraints": {
+    "min_triples": 2,
+    "max_triples": 8,
+    "require_type_triples": true
+  }
+}
