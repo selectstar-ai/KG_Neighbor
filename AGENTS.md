@@ -23,6 +23,7 @@ kg_neighbor/
 kg_extractor/            prompts and schemas used to construct the KGs (not Python code)
 tests/                   pytest tests
 docs/assets/             figures of the paper (the READMEs use 01 and 02)
+docs/supplementary.pdf   supplementary material of the paper
 data/, results/          inputs and outputs, not tracked
 ```
 
@@ -51,7 +52,7 @@ python run_pipeline.py --help    # all stages and options
 - **Secrets stay local.** API keys are read from `.env` (see `.env.example`). Never print or commit `.env`.
 - **Do not commit `data/` or `results/`.** They are ignored. The only tracked files under `data/` are the
   released KG triples (`data/<dataset>/kg/triples.tar.gz`). `docs/` is ignored as well, and only the
-  figures in `docs/assets/` are tracked.
+  figures in `docs/assets/` and `docs/supplementary.pdf` are tracked.
 - **Optional dependencies are imported inside functions** (torch, sentence-transformers, matplotlib,
   openai, anthropic), so that the core modules run with the base dependencies. Keep it that way.
 - **The prompts and schemas in `kg_extractor/` are a record.** `AGENT.md`, the `SKILLS.md` files and

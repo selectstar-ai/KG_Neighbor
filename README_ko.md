@@ -17,6 +17,7 @@
 </div>
 
 이 저장소는 논문 [KG-Neighbor: Knowledge-Guided Neighborhood Construction for Embedding Visualization](https://arxiv.org/abs/2611.07246) (WSDM 2027 Findings)의 코드를 담고 있습니다.
+논문의 보충 자료는 [docs/supplementary.pdf](docs/supplementary.pdf)에 있습니다.
 
 ## About KG-Neighbor
 

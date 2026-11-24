@@ -18,6 +18,7 @@
 
 This repository contains code for the paper
 [KG-Neighbor: Knowledge-Guided Neighborhood Construction for Embedding Visualization](https://arxiv.org/abs/2611.07246) (WSDM 2027 Findings).
+The supplementary material of the paper is available at [docs/supplementary.pdf](docs/supplementary.pdf).
 
 ## About KG-Neighbor
 

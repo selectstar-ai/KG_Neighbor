@@ -140,4 +140,4 @@ A condition name joins the prompt (O original, N neutral), the model (48 Claude 
 In the instructions, `{BASE}`, `{DATASET}`, and `{BATCH}` stand for the repository path, the data folder,
 and the batch file, and `stackoverflow_qa_original.json` is a copy of `domains/stackoverflow_qa.json`.
 
-See the supplementary material of the paper for details.
+See the [supplementary material](../docs/supplementary.pdf) of the paper for details.
